@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+{% block content %}
+  <h2>Мои задачи</h2>
+  <a href="{% url 'task_create' %}">+ Новая задача</a>
+  <ul>
+    {% for task in tasks %}
+      <li>
+        <strong>{{ task.title }}</strong>
+        {% if task.completed %}✔{% else %}❌{% endif %}
+        [<a href="{% url 'task_edit' task.pk %}">✏</a>]
+        [<a href="{% url 'task_delete' task.pk %}">🗑</a>]
+      </li>
+    {% empty %}
+      <li>Пока задач нет.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,17 +1,47 @@
 {% extends "main.html" %}
+
 {% block content %}
-  <h2>Мои задачи</h2>
-  <a href="{% url 'task_create' %}">+ Новая задача</a>
-  <ul>
-    {% for task in tasks %}
-      <li>
-        <strong>{{ task.title }}</strong>
-        {% if task.completed %}✔{% else %}❌{% endif %}
-        [<a href="{% url 'task_edit' task.pk %}">✏</a>]
-        [<a href="{% url 'task_delete' task.pk %}">🗑</a>]
-      </li>
-    {% empty %}
-      <li>Пока задач нет.</li>
-    {% endfor %}
-  </ul>
+<div class="w-full max-w-3xl mx-auto p-6 bg-white rounded-xl shadow-lg">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold">Мои задачи</h2>
+    <a href="{% url 'task_create' %}"
+       class="inline-block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition">
+      + Новая задача
+    </a>
+  </div>
+
+  {% if tasks %}
+    <ul class="space-y-4">
+      {% for task in tasks %}
+        <li class="flex items-center justify-between bg-gray-100 p-4 rounded hover:shadow transition">
+          <div>
+            <p class="text-lg font-medium {% if task.completed %}line-through text-gray-400{% endif %}">
+                {{ task.title }}
+            </p>
+            <p class="text-sm text-gray-500">
+              Статус:
+              {% if task.completed %}
+                <span class="text-green-600 font-semibold">✔ Выполнено</span>
+              {% else %}
+                <span class="text-red-600 font-semibold">❌ Не выполнено</span>
+              {% endif %}
+            </p>
+          </div>
+          <div class="flex space-x-2">
+            <a href="{% url 'task_edit' task.pk %}"
+               class="text-blue-600 hover:text-blue-800 text-xl" title="Редактировать">
+              ✏
+            </a>
+            <a href="{% url 'task_delete' task.pk %}"
+               class="text-red-600 hover:text-red-800 text-xl" title="Удалить">
+              🗑
+            </a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-gray-500">Пока задач нет.</p>
+  {% endif %}
+</div>
 {% endblock %}

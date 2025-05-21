@@ -1,9 +1,39 @@
 {% extends "main.html" %}
+
 {% block content %}
-  <h2>{% if form.instance.pk %}Редактировать{% else %}Новая задача{% endif %}</h2>
-  <form method="post">
+<div class="w-full max-w-xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+  <h2 class="text-2xl font-bold text-center mb-6">
+    {% if form.instance.pk %}Редактировать{% else %}Новая задача{% endif %}
+  </h2>
+
+  <form method="post"
+        class="[&>p]:mb-4
+               [&>p>label]:block
+               [&>p>label]:mb-1
+               [&>p>input]:w-full
+               [&>p>textarea]:w-full
+               [&>p>input]:border
+               [&>p>textarea]:border
+               [&>p>input]:rounded-md
+               [&>p>textarea]:rounded-md
+               [&>p>input]:px-3
+               [&>p>input]:py-2
+               [&>p>textarea]:px-3
+               [&>p>textarea]:py-2
+               [&>p>input]:border-gray-300
+               [&>p>textarea]:border-gray-300
+               [&>p>input]:focus:ring-2
+               [&>p>textarea]:focus:ring-2
+               [&>p>input]:focus:ring-blue-500
+               [&>p>textarea]:focus:ring-blue-500">
+
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Сохранить</button>
+
+    <button type="submit"
+            class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 mt-2">
+      Сохранить
+    </button>
   </form>
+</div>
 {% endblock %}

@@ -1,9 +1,27 @@
 {% extends "main.html" %}
+
 {% block content %}
-<h2>Удалить "{{ task.title }}"?</h2>
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">Удалить</button>
-  <a href="{% url 'task_list' %}">Отмена</a>
-</form>
+<div class="w-full max-w-lg mx-auto mt-20 bg-white p-8 rounded-xl shadow-xl text-center">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">
+    Удалить задачу
+  </h2>
+
+  <p class="text-gray-700 text-lg mb-6">
+    Вы действительно хотите удалить задачу<br>
+    <span class="font-semibold text-red-600">"{{ task.title }}"</span>?
+  </p>
+
+  <form method="post" class="flex justify-center space-x-4">
+    {% csrf_token %}
+    <button type="submit"
+            class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded transition">
+      Удалить
+    </button>
+
+    <a href="{% url 'task_list' %}"
+       class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-6 rounded transition">
+      Отмена
+    </a>
+  </form>
+</div>
 {% endblock %}
